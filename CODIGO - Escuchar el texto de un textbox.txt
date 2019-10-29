@@ -1,0 +1,42 @@
+
+Imports System.Speech.Synthesis
+
+Public Class Form1
+    Dim leer As New SpeechSynthesizer
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.TextBox1.Text = "Pega aquí el texto a leer"
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        'Comienza a leer el contenido del TextBox
+        'Se asigna SpeakAsync para que el proceso sea asincrono y podamos realizar
+        'otro proceso
+        leer.SpeakAsync(Me.TextBox1.Text)
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        'Pausa la lectura
+        If leer.State = SynthesizerState.Speaking Then
+            leer.Pause()
+        End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        'Reanura la lectura
+        If leer.State = SynthesizerState.Paused Then
+            leer.Resume()
+        End If
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        'Detiene la lectura
+        If leer IsNot Nothing Then
+            leer.Dispose()
+        End If
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        'Borrar el contenido del TextBox
+        Me.TextBox1.Text = ""
+    End Sub
+End Class
